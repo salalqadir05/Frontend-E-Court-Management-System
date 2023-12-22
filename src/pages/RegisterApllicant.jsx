@@ -1,0 +1,254 @@
+import React, { useState } from 'react';
+import sidebar from "../assets/sideimage.jpeg";
+import secondlogo from '../assets/secondlogo.png'
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+function RegisterApplicant() {
+
+
+  return (
+    <Container>
+      <div className="row-div">
+        <div className='col1'>
+          <img src={sidebar} alt="image" />
+        </div>
+        <div className='col2'>
+          <img src={secondlogo} alt="logo" />
+          <h2>Welcome To E-Court</h2>
+          <h4>Applicant PANEL</h4>
+   
+        <form  className="form">
+        <div class="row">
+          <div class="col form__div">
+            <input type="text" className="form-control form__input" placeholder=" " />
+            <label for="" className="form__label">First_Name</label>
+
+          </div>
+          <div class="col form__div">
+            <input type="text" className="form-control form__input" placeholder="" />
+            <label for="" className="form__label">Last_Name</label>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form__div">
+            <input type="email" className="form-control form__input" placeholder=" " />
+            <label for="" className="form__label">Email</label>
+
+          </div>
+          <div class="col form__div">
+            <input type="text" className="form-control form__input" placeholder="" />
+            <label for="" className="form__label">Cnic</label>
+
+          </div>
+        </div>
+        <div class="row p_row">
+          <div class="col form__div">
+            <input type="password" className="form-control w-100 form__input" placeholder=" " />
+            <label for="" className="form__label">Password</label>
+          </div>
+        </div>
+        <div class="row p_row">
+          <div class="col form__div">
+            <input type="password" className="form-control w-100 form__input" placeholder=" " />
+            <label for="" className="form__label">Confirm_Password</label>
+          </div>
+        </div>
+        <span className='d-flex justify-content-end px-5  mb-3'>
+            Already have an account ? <Link to="/applicantlogin">Login.</Link>
+          </span>
+        <button className="btn">Register</button>
+        
+    
+        
+      </form>
+    
+    </div>
+
+      </div>
+
+
+    </Container>
+  )
+}
+const Container = styled.div`
+.row-div{
+  width : 100vw;
+  height :100vh;
+  display :flex;
+  flex-direction : row
+}
+.p_row{
+  width :39vw;
+}
+.col1 {
+width : 52vw;
+  height : 100vh;
+}
+.col1 img{
+width : 52vw;
+height : 100vh;
+}
+.col2 {
+width : 48vw;
+height : 100vh
+}
+.col2 h2,h4{
+ text-align: center;
+  color: blue;
+}
+.col2 img{
+  width :17%;
+  height :17%;
+  display :flex;
+  justify-content : centre ;
+  align-item :centre;
+  margin : auto;
+  margin-top : 5px;
+}
+.form__div {
+  display: flex;
+  flex-direction: row; /* Change this line to make input fields appear in one row */
+  position: relative;
+  margin-bottom: 1rem;
+}
+span{
+  margin-right:34px;
+  color : gray;
+}
+.form__input {
+  width: 17vw;
+  height: 95%;
+  font-size: var(--normal-font-size);
+  border: 2px solid blue;
+  border-radius: .5rem;
+  outline: none;
+  padding: 1rem;
+  background: none;
+  margin: 0;
+}
+
+.form__label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0 .25rem;
+  background-color: #fff;
+  color: var(--input-color);
+  font-size: var(--normal-font-size);
+  transition: .3s;
+  margin-left : 8px;
+}
+
+.form__input:focus + .form__label {
+  top: -.5rem;
+  left: .8rem;
+  color: blue;
+  font-size: var(--small-font-size);
+  font-weight: 400;
+  z-index: 10;
+}
+
+.form__input:not(:placeholder-shown).form__input:not(:focus) + .form__label {
+  top: -.5rem;
+  left: .8rem;
+  z-index: 10;
+  font-size: var(--small-font-size);
+  font-weight: 400;
+}
+.row{
+  margin :auto 50px;
+}
+.form__input:focus {
+  border: 2px solid blue;
+}
+.form button,
+button:hover {
+  color: white;
+  background-color: blue;
+  margin-top: 30px;
+  margin-left: 180px;
+  width: 10vw;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  margin-buttom :5px;
+}
+
+.form button:hover {
+  background-color: darkblue; /* Change the color on hover if needed */
+}
+@media only screen and (max-width: 767px) {
+  .col1 {
+    
+    display:none;
+  }
+  .row-div {
+  
+    display: flex;
+    justify-content : centre ;
+    align-item : centre;
+  
+  }
+  .col2{
+    width: 100vw;
+      height: 100vh
+  }
+  .col2 form input {
+    width: 70vw;
+  }
+  .col2 img {
+    margin-top:25px;
+    height: 20vh;
+    width: 45vw;
+  }
+  .col2 form button{
+    width: 34vw;
+    margin-left: 132px;
+    margin-top: 24px;
+    
+  
+  }
+  
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .col1 {
+    
+      display:none;
+    }
+    .row-div {
+    
+      display: flex;
+      justify-content : centre ;
+      align-item : centre;
+    
+    }
+    .col2{
+      width: 100vw;
+        height: 100vh
+    }
+    .col2 form input {
+      width: 100vw;
+    }
+    .col2 img {
+      margin-top:25px;
+      height: 20vh;
+      width: 28vw;
+    }
+    .col2 form button{
+      width: 34vw;
+      margin-left: 264px;
+      margin-top: 24px;
+      
+    
+    }
+
+`;
+
+
+
+export default RegisterApplicant
