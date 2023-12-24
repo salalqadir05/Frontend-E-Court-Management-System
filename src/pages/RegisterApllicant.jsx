@@ -2,13 +2,96 @@ import React, { useState } from 'react';
 import sidebar from "../assets/sideimage.jpeg";
 import secondlogo from '../assets/secondlogo.png'
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
+import { Link,useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { registerRoute } from '../utlis/APIRoutes';
 function RegisterApplicant() {
+  const navigate = useNavigate();
+  const [credentials ,setCredentials] = useState({
+    Firstname : "",
+    Lastname : "",
+    Email : "",
+    Cnic : "",
+    Password : "",
+    ConfirmPassword : ""
+  });
+  const toastOptions = {
+    position: "bottom-left",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+
+
+  const handleChange = (event) => {
+    setCredentials({ ...credentials, [event.target.name]: event.target.value });
+  };
+const handleSubmit= async(event) =>{
+  event.preventDefault();
+  if (handlevalidation())
+  {
+    const {Firstname,Lastname,Email,Cnic,Password} = credentials; 
+    const {data} =  await axios.post(registerRoute,{
+Firstname,
+Lastname,
+Email,
+Cnic,
+Password
+    });
+    console.log(data.applicant);
+    if (data.status === false) {
+      toast.error(data.msg, toastOptions);
+    }
+    if (data.status === true) {
+      localStorage.setItem(
+        "E-Court-Management-System",
+        JSON.stringify(data.applicant)
+      );
+      navigate("/applicantlogin");
+    }
+  
+
+  
+  }
+} 
+
+const handlevalidation = ()=>{
+  const {Firstname,Lastname,Email,Cnic,Password,ConfirmPassword} = credentials;
+  if(Firstname.length < 3 )
+  {
+    toast.error("First Name length minimum 3 ",toastOptions);
+  return false;
+  }
+  if( Lastname.length < 3)
+  {
+    toast.error("Last Name length minimum 3 ",toastOptions);
+   return false;
+  }
+  if(Email ===  "")
+  {
+    toast.error("Email is required",toastOptions);
+  return false;
+  }
+  if(Cnic.length !== 13)
+  {
+    toast.error("Cnic length must be 13",toastOptions);
+  return false;
+  }
+  if(Password !== ConfirmPassword)
+  {
+    toast.error("Password Does not match",toastOptions);
+return false;
+  }
+  return true ;
+}
 
 
   return (
-    <Container>
+<>
+<Container>
       <div className="row-div">
         <div className='col1'>
           <img src={sidebar} alt="image" />
@@ -18,41 +101,41 @@ function RegisterApplicant() {
           <h2>Welcome To E-Court</h2>
           <h4>Applicant PANEL</h4>
    
-        <form  className="form">
-        <div class="row">
-          <div class="col form__div">
-            <input type="text" className="form-control form__input" placeholder=" " />
-            <label for="" className="form__label">First_Name</label>
+        <form  className="form" onSubmit={(event) => handleSubmit(event)}>
+        <div className="row">
+          <div className="col form__div">
+            <input type="text" className="form-control form__input" name='Firstname' onChange={(e) => handleChange(e)} />
+            <label htmlFor="First_Name" className="form__label">First_Name</label>
 
           </div>
-          <div class="col form__div">
-            <input type="text" className="form-control form__input" placeholder="" />
-            <label for="" className="form__label">Last_Name</label>
-
-          </div>
-        </div>
-        <div class="row">
-          <div class="col form__div">
-            <input type="email" className="form-control form__input" placeholder=" " />
-            <label for="" className="form__label">Email</label>
-
-          </div>
-          <div class="col form__div">
-            <input type="text" className="form-control form__input" placeholder="" />
-            <label for="" className="form__label">Cnic</label>
+          <div className="col form__div">
+            <input type="text" className="form-control form__input" name='Lastname' onChange={(e) => handleChange(e)} />
+            <label htmlFor="Last_Name" className="form__label">Last_Name</label>
 
           </div>
         </div>
-        <div class="row p_row">
-          <div class="col form__div">
-            <input type="password" className="form-control w-100 form__input" placeholder=" " />
-            <label for="" className="form__label">Password</label>
+        <div className="row">
+          <div className="col form__div">
+            <input type="email" className="form-control form__input" name='Email' onChange={(e) => handleChange(e)} />
+            <label htmlFor="Email" className="form__label">Email</label>
+
+          </div>
+          <div className="col form__div">
+            <input type="text" className="form-control form__input" name='Cnic' onChange={(e) => handleChange(e)}  autoComplete="Cnic"  />
+            <label htmlFor="Cnic" className="form__label">Cnic</label>
+
           </div>
         </div>
-        <div class="row p_row">
-          <div class="col form__div">
-            <input type="password" className="form-control w-100 form__input" placeholder=" " />
-            <label for="" className="form__label">Confirm_Password</label>
+        <div className="row p_row">
+          <div className="col form__div">
+            <input type="password" className="form-control w-100 form__input" name='Password' onChange={(e) => handleChange(e)} autoComplete="new-password" />
+            <label htmlFor="Password" className="form__label">Password</label>
+          </div>
+        </div>
+        <div className="row p_row">
+          <div className="col form__div">
+            <input type="password" className="form-control w-100 form__input" name='ConfirmPassword' onChange={(e) => handleChange(e)} autoComplete="new-password" />
+            <label htmlFor="ConfirmPassword" className="form__label">Confirm_Password</label>
           </div>
         </div>
         <span className='d-flex justify-content-end px-5  mb-3'>
@@ -70,6 +153,8 @@ function RegisterApplicant() {
 
 
     </Container>
+    < ToastContainer /> 
+    </>
   )
 }
 const Container = styled.div`
@@ -246,6 +331,7 @@ button:hover {
       
     
     }
+  }
 
 `;
 
