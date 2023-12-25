@@ -25,12 +25,12 @@ function LoginApplicant() {
     Password: ""
   });  
 
-const handleChange = (event) => {
-    setCredentials({ ...credentials, [event.target.name]: event.target.value });
+const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
 }
+
   const validateForm = () => {
     const { Email, Password } = credentials;
-    console.log(Email,Password);
 
     if (Email === "") {
       toast.error("Email and Password is required.", toastOptions);
@@ -59,7 +59,7 @@ const handleChange = (event) => {
           "E-Court-Management-System",
           JSON.stringify(data.checkApplicant)
         );
-        navigate("/applicantsidebar");
+        navigate("/layout");
       }
     }
   }
@@ -78,12 +78,12 @@ const handleChange = (event) => {
           <div className="l-form">
             <form className="form" onSubmit={(event) => handleSubmit(event)}>
               <div className="form__div">
-                <input type="email" className="form__input" onChange={(e) => handleChange(e)} autoComplete="Email" />
+                <input type="email" className="form__input" name='Email' onChange={(e) => handleChange(e)} autoComplete="Email" />
                 <label htmlFor="Email" className="form__label">Email</label>
               </div>
 
               <div className="form__div">
-                <input type="password" className="form__input" onChange={(e) => handleChange(e)} autoComplete="Password"  />
+                <input type="password" className="form__input" onChange={(e) => handleChange(e)} autoComplete="Password" name='Password' />
                 <label htmlFor="Password" className="form__label">Password</label>
               </div>
               <span className='d-flex justify-content-end mb-3'>

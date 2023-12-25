@@ -4,7 +4,7 @@ import Main from "./pages/Main";
 import { BrowserRouter as Router ,Routes,Route } from "react-router-dom";
 import LoginApplicant from "./pages/LoginApplicant";
 import RegisterApplicant from "./pages/RegisterApllicant";
-import SidebarApplicant from "./pages/SidebarApplicant";
+import Layout from "./Layout/Layout";
 function App() {
 
   return (
@@ -14,7 +14,8 @@ function App() {
       <Route exact path="/" element={<Main />} />
       <Route exact path="/applicantregister" element={<RegisterApplicant />} />
       <Route exact path="/applicantlogin" element={<LoginApplicant />} />
-      <Route exact path="/applicantsidebar" element={<SidebarApplicant />} />
+      <Route exact path="/layout" element={<Layout />} />
+     
 
     
   </Routes>
